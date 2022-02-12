@@ -18,6 +18,7 @@ All programs must be able to compile in C++98 standard (the default version on L
 #include <fstream>
 //Added by Jon
 #include <map>
+#include <iterator>
 using namespace std; 
 
 int main() {
@@ -79,12 +80,9 @@ int main() {
   for (int j = 0; j < vSKU.size(); j++) {
     cout << vSKU[j] << "\t" << vBrand[j] << "\t" << vYear[j] << endl;
   }
-
-  
-  cout << vSKU[2] << "\t" << vYear[3] << "\t" << "Year" << endl; 
-
-  double avgPrice = 0;
-  
+ 
+  //Finding the average price of each SKU
+  double avgPrice = 0;  
 
   for(int i = 0; i < vSKU.size(); i++) {
     avgPrice += vPrice[i];
@@ -95,12 +93,25 @@ int main() {
   cout << endl;
 
   //2-D Vector where Year X SKU 
-  map<int, int> mapz;
+  map<int, vector<int>> mapz;
 
-  mapz.insert(0,2);
 
   for(int i = 0; i < vYear.size(); i++) {
-              
-            
-              
+      vector<int> yearSKU;
+      for (int j = 0; j < vSKU.size(); j++) {
+          if (vYear[i] == vYear[j]) {
+              yearSKU.push_back(vSKU[j]);
+          }
+               
+      }
+    mapz.insert(pair<int, vector<int>>(vYear[i], yearSKU));
+             
   }
+
+  for (const auto& pair : mapz) {
+      cout << pair.first << " (" << pair.second.size() << ") ";
+      for (int d : pair.second) cout << d << " " ;
+      cout << endl;
+  }
+
+}
