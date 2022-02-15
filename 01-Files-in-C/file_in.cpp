@@ -38,6 +38,7 @@ int main() {
 
     string line;
 
+    getline(in_stream, line);
     //Changed while condition
     while (!in_stream.eof()) { //while the end of file is NOT reached
 
@@ -61,7 +62,7 @@ int main() {
      syear >> iYear;
      vYear.push_back(iYear);
 
-     getline(in_stream, price, '\n'); 
+     getline(in_stream, price); 
      stringstream sprice(price);
      float fPrice;
      sprice >> fPrice;
@@ -75,31 +76,25 @@ int main() {
     cout << "Unable to open file"; 
    }
  
-  //output values 
-  cout << "SKU" << "\t" << "Brand" << "\t" << "Year" << endl; 
-
-  for (int j = 0; j < vSKU.size(); j++) {
-    cout << vSKU[j] << "\t" << vBrand[j] << "\t" << vYear[j] << endl;
-  }
+  //Output File
+  ofstream outFile("lab1.txt");
  
-  //Finding the average price of each SKU and displaying it.
+  //Finding the average price of each SKU and writing it to file.
   double avgPrice = 0;  
 
   for(int i = 0; i < vSKU.size(); i++) {
     avgPrice += vPrice[i];
   }
 
-  cout <<  "Average Price: " << avgPrice / vSKU.size() << endl;
-
-  cout << endl;
+  outFile <<  "Average Price: " << avgPrice / vSKU.size() << endl;
 
   //2-D Vector where Year X SKU 
   map<int, vector<int>> mapz;
 
   //For every Year insert into map the where vSKU and vYear indexes are the same.
-  for(int i = 0; i < vYear.size(); i++) {
+  for(int i = 0; i < vYear.size() - 1; i++) {
       vector<int> yearSKU;
-      for (int j = 0; j < vSKU.size(); j++) {
+      for (int j = 0; j < vSKU.size() - 1; j++) {
           if (vYear[i] == vYear[j]) {
               yearSKU.push_back(vSKU[j]);
           }
@@ -111,9 +106,12 @@ int main() {
 
   //Print out every pair within map
   for (const auto& pair : mapz) {
-      cout << pair.first << " (" << pair.second.size() << ") ";
-      for (int d : pair.second) cout << d << " " ;
-      cout << endl;
+      outFile << pair.first << " (" << pair.second.size() << ") ";
+      for (int d : pair.second) outFile << d << " " ;
+      outFile << endl;
   }
+
+  //Closing output file
+  outFile.close();
 
 }
