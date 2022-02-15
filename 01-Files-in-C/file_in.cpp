@@ -38,7 +38,8 @@ int main() {
 
     string line;
 
-    while (getline(in_stream, line)) { //while the end of file is NOT reached
+    //Changed while condition
+    while (!in_stream.eof()) { //while the end of file is NOT reached
 
      // Fields: sku,brand,category,year,price
 
@@ -81,7 +82,7 @@ int main() {
     cout << vSKU[j] << "\t" << vBrand[j] << "\t" << vYear[j] << endl;
   }
  
-  //Finding the average price of each SKU
+  //Finding the average price of each SKU and displaying it.
   double avgPrice = 0;  
 
   for(int i = 0; i < vSKU.size(); i++) {
@@ -95,7 +96,7 @@ int main() {
   //2-D Vector where Year X SKU 
   map<int, vector<int>> mapz;
 
-
+  //For every Year insert into map the where vSKU and vYear indexes are the same.
   for(int i = 0; i < vYear.size(); i++) {
       vector<int> yearSKU;
       for (int j = 0; j < vSKU.size(); j++) {
@@ -108,6 +109,7 @@ int main() {
              
   }
 
+  //Print out every pair within map
   for (const auto& pair : mapz) {
       cout << pair.first << " (" << pair.second.size() << ") ";
       for (int d : pair.second) cout << d << " " ;
