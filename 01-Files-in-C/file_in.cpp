@@ -75,42 +75,84 @@ int main() {
    } else {
     cout << "Unable to open file"; 
    }
+
+  //output values 
+  cout << "SKU" << "\t" << "Brand" << "\t" << "Cate." << "\t" << "Year" << "\t" << "Price"<< endl; 
+
+  for (int j = 0; j < vSKU.size() - 1; j++) {
+    cout << vSKU[j] << "\t" << vBrand[j] << "\t" << vCategory[j] << "\t" << vYear[j] << "\t" << vPrice[j] << endl;
+  }
+
+  cout << endl;
  
   //Output File
   ofstream outFile("lab1.txt");
  
-  //Finding the average price of each SKU and writing it to file.
-  double avgPrice = 0;  
 
-  for(int i = 0; i < vSKU.size(); i++) {
-    avgPrice += vPrice[i];
+  //Set Decimal Precision to 2 Places
+  cout.precision(2);
+
+  //Putting each brand with each price into a map
+  map<string, vector<float> > brandPrice; 
+  for (int i = 0; i < vBrand.size() - 1; i++) {
+      brandPrice[vBrand[i]].push_back(vPrice[i]); 
   }
 
-  outFile <<  "Average Price: " << avgPrice / vSKU.size() << endl;
+  map<string, vector<float> >::iterator brandItr;
 
-  //2-D Vector where Year X SKU 
-  map<int, vector<int>> mapz;
-
-  //For every Year insert into map the where vSKU and vYear indexes are the same.
-  for(int i = 0; i < vYear.size() - 1; i++) {
-      vector<int> yearSKU;
-      for (int j = 0; j < vSKU.size() - 1; j++) {
-          if (vYear[i] == vYear[j]) {
-              yearSKU.push_back(vSKU[j]);
-          }
-               
+  //Iterating through the map and calculating the average and writing to the file
+  cout << "Average Price of Each Brand" << endl;
+  for (brandItr = brandPrice.begin(); brandItr != brandPrice.end(); ++brandItr) {
+      float totalPrice = 0;
+      for(int i = 0; i < brandItr->second.size(); i++) {
+          totalPrice+=brandItr->second[i];
       }
-    mapz.insert(pair<int, vector<int>>(vYear[i], yearSKU));
-             
+
+      cout << brandItr->first << " : " << totalPrice / brandItr->second.size() << endl; 
+  }
+    
+  map<string, vector<float> > catePrice; 
+  for (int i = 0; i < vCategory.size() - 1; i++) {
+      catePrice[vCategory[i]].push_back(vPrice[i]); 
   }
 
-  //Print out every pair within map
-  for (const auto& pair : mapz) {
-      outFile << pair.first << " (" << pair.second.size() << ") ";
-      for (int d : pair.second) outFile << d << " " ;
-      outFile << endl;
+  //catePrice iterator
+  map<string, vector<float> >::iterator cateItr;
+
+  //Iterating through the map and calculating the average and writing to the file
+  cout << "Average Price of Each Category" << endl;
+  for (cateItr = catePrice.begin(); cateItr != catePrice.end(); ++cateItr) {
+      float totalPrice = 0;
+      for(int i = 0; i < cateItr->second.size(); i++) {
+          totalPrice+=cateItr->second[i];
+      }
+
+      cout << cateItr->first << " : " << totalPrice / cateItr->second.size() << endl; 
   }
 
+
+  map<int, vector<int> > yearSKU; 
+  for (int i = 0; i < vYear.size() - 1; i++) {
+      yearSKU[vYear[i]].push_back(vSKU[i]); 
+  }
+
+  //yearSKU iterator
+  map<int, vector<int> >::iterator skuItr;
+
+  //Iterating through the map and calculating the average and writing to the file
+  cout << "SKUs by Year" << endl;
+  for (skuItr = yearSKU.begin(); skuItr != yearSKU.end(); ++skuItr) {
+  cout << skuItr->first << "(" << skuItr->second.size() << ") : ";
+      for(int i = 0; i < skuItr->second.size(); i++) {
+          
+        cout << skuItr->second[i] << " ";
+          
+
+      }
+
+      cout << endl;
+
+  }
   //Closing output file
   outFile.close();
 
