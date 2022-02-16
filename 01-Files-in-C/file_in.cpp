@@ -76,21 +76,23 @@ int main() {
     cout << "Unable to open file"; 
    }
 
-  //output values 
-  cout << "SKU" << "\t" << "Brand" << "\t" << "Cate." << "\t" << "Year" << "\t" << "Price"<< endl; 
 
-  for (int j = 0; j < vSKU.size() - 1; j++) {
-    cout << vSKU[j] << "\t" << vBrand[j] << "\t" << vCategory[j] << "\t" << vYear[j] << "\t" << vPrice[j] << endl;
-  }
-
-  cout << endl;
- 
   //Output File
   ofstream outFile("lab1.txt");
+
+  //output values 
+  outFile << "SKU" << "\t" << "Brand" << "\t" << "Cate." << "\t" << "Year" << "\t" << "Price"<< endl; 
+
+  for (int j = 0; j < vSKU.size() - 1; j++) {
+    outFile << vSKU[j] << "\t" << vBrand[j] << "\t" << vCategory[j] << "\t" << vYear[j] << "\t" << vPrice[j] << endl;
+  }
+
+  outFile << endl;
+ 
  
 
   //Set Decimal Precision to 2 Places
-  cout.precision(2);
+  outFile.precision(2);
 
   //Putting each brand with each price into a map
   map<string, vector<float> > brandPrice; 
@@ -101,14 +103,14 @@ int main() {
   map<string, vector<float> >::iterator brandItr;
 
   //Iterating through the map and calculating the average and writing to the file
-  cout << "Average Price of Each Brand" << endl;
+  outFile << "Average Price of Each Brand" << endl;
   for (brandItr = brandPrice.begin(); brandItr != brandPrice.end(); ++brandItr) {
       float totalPrice = 0;
       for(int i = 0; i < brandItr->second.size(); i++) {
           totalPrice+=brandItr->second[i];
       }
 
-      cout << brandItr->first << " : " << totalPrice / brandItr->second.size() << endl; 
+      outFile << brandItr->first << " : " << totalPrice / brandItr->second.size() << endl; 
   }
     
   map<string, vector<float> > catePrice; 
@@ -120,14 +122,14 @@ int main() {
   map<string, vector<float> >::iterator cateItr;
 
   //Iterating through the map and calculating the average and writing to the file
-  cout << "Average Price of Each Category" << endl;
+  outFile << "Average Price of Each Category" << endl;
   for (cateItr = catePrice.begin(); cateItr != catePrice.end(); ++cateItr) {
       float totalPrice = 0;
       for(int i = 0; i < cateItr->second.size(); i++) {
           totalPrice+=cateItr->second[i];
       }
 
-      cout << cateItr->first << " : " << totalPrice / cateItr->second.size() << endl; 
+      outFile << cateItr->first << " : " << totalPrice / cateItr->second.size() << endl; 
   }
 
 
@@ -140,17 +142,17 @@ int main() {
   map<int, vector<int> >::iterator skuItr;
 
   //Iterating through the map and calculating the average and writing to the file
-  cout << "SKUs by Year" << endl;
+  outFile << "SKUs by Year" << endl;
   for (skuItr = yearSKU.begin(); skuItr != yearSKU.end(); ++skuItr) {
-  cout << skuItr->first << "(" << skuItr->second.size() << ") : ";
+  outFile << skuItr->first << "(" << skuItr->second.size() << ") : ";
       for(int i = 0; i < skuItr->second.size(); i++) {
           
-        cout << skuItr->second[i] << " ";
+        outFile << skuItr->second[i] << " ";
           
 
       }
 
-      cout << endl;
+      outFile << endl;
 
   }
   //Closing output file
