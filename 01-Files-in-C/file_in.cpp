@@ -113,6 +113,7 @@ int main() {
       outFile << brandItr->first << " : " << totalPrice / brandItr->second.size() << endl; 
   }
     
+  //Putting each category with each price into a map
   map<string, vector<float> > catePrice; 
   for (int i = 0; i < vCategory.size() - 1; i++) {
       catePrice[vCategory[i]].push_back(vPrice[i]); 
@@ -132,7 +133,8 @@ int main() {
       outFile << cateItr->first << " : " << totalPrice / cateItr->second.size() << endl; 
   }
 
-
+  
+  //Create Map for year to sku
   map<int, vector<int> > yearSKU; 
   for (int i = 0; i < vYear.size() - 1; i++) {
       yearSKU[vYear[i]].push_back(vSKU[i]); 
@@ -141,7 +143,7 @@ int main() {
   //yearSKU iterator
   map<int, vector<int> >::iterator skuItr;
 
-  //Iterating through the map and calculating the average and writing to the file
+  //Iterating through the map to output the SKUs by year
   outFile << "SKUs by Year" << endl;
   for (skuItr = yearSKU.begin(); skuItr != yearSKU.end(); ++skuItr) {
   outFile << skuItr->first << "(" << skuItr->second.size() << ") : ";
