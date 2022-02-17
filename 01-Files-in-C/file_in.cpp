@@ -146,12 +146,10 @@ int main() {
   //Iterating through the map to output the SKUs by year
   outFile << "SKUs by Year" << endl;
   for (skuItr = yearSKU.begin(); skuItr != yearSKU.end(); ++skuItr) {
-  outFile << skuItr->first << "(" << skuItr->second.size() << ") : ";
-      for(int i = 0; i < skuItr->second.size(); i++) {
-          
-        outFile << skuItr->second[i] << " ";
-          
+      outFile << skuItr->first << "(" << skuItr->second.size() << ") : ";
 
+      for(int i = 0; i < skuItr->second.size(); i++) {
+          outFile << skuItr->second[i] << " "; 
       }
 
       outFile << endl;
