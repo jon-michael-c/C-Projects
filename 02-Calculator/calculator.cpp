@@ -7,7 +7,6 @@ enum Oper {
 };
 
 struct Calculator {
-    Oper op;
     double num1;
     double num2;
 
@@ -35,11 +34,11 @@ struct Calculator {
 
 int main() {
     
-    bool done = false;
+    string done = "Y";
     double num1=0, num2=0;
     int mode;   
 
-    while(!done) {
+    while(done == "Y" || done == "y") {
         cout << "Enter Operation" << endl;
         cout << "0 - ADD" << endl;
         cout << "1 - SUBTRACT" << endl;
@@ -61,8 +60,8 @@ int main() {
 
         cout << calc.calculate(mode) << endl;
 
-        
-        
+        cout << "Another Calculation? Y/N: ";
+        cin >> done; 
     }    
     return 0;
 
