@@ -1,8 +1,8 @@
 # C-Projects
 ## Calculator Using Enums
-Run using ```make lab2```\n
-Source file can be found [here](https://github.com/jon-michael-c/C-Projects/blob/lab2/02-Calculator/calculator.cpp)\n
-Objective: Create a calculator program using struct and enums in C++.\n
+Run using ```make lab2``` <br/>
+Source file can be found [here](https://github.com/jon-michael-c/C-Projects/blob/lab2/02-Calculator/calculator.cpp) <br/>
+Objective: Create a calculator program using struct and enums in C++.<br/>
 First we must create a calculator struct that takes two numbers, along with the constructor.
 ```c++
 struct Calculator {
@@ -56,4 +56,4 @@ Number 1: 5
 Number 2: 4
 Result: 20
 Another Calculation? Y/N: 
-`` 
+```
