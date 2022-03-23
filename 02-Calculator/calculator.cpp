@@ -2,11 +2,12 @@
 #include <math.h>
 
 using namespace std;
-enum Oper {
-    Add=0, Sub, Mult, Div, Sqrt
-};
+
 
 struct Calculator {
+    enum Oper {
+        Add=0, Sub, Mult, Div, Sqrt
+    };
     double num1;
     double num2;
 
@@ -49,16 +50,16 @@ int main() {
 
 
         cout << "Enter two numbers" << endl;
-        cout << "Number 1: " << endl;
+        cout << "Number 1: ";
         cin >> num1;
         if(mode != 4) {
-            cout << "Number 2: " << endl;
+            cout << "Number 2: ";
             cin >> num2;
         }
         
         Calculator calc(num1, num2);
 
-        cout << calc.calculate(mode) << endl;
+        cout << "Result: " << calc.calculate(mode) << endl;
 
         cout << "Another Calculation? Y/N: ";
         cin >> done; 
