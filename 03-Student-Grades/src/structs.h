@@ -11,6 +11,14 @@ struct entry {
     string termid;
     string sectionid;
     string grade;
+
+    bool isEqual(entry i) {
+        if(this->emplid == i.emplid && this->courseno == i.courseno && this->sectionid == i.sectionid) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 };
 
 struct student {
