@@ -17,10 +17,12 @@ class recordUtil {
         vector<term> terms;
     public:
         recordUtil() {
-            this->entries = readEntries("./03-Student-Grades/src/data/1115.csv");
-            this->students = readStudents("./03-Student-Grades/src/data/1115.csv");
-            this->instructors = readInstructors("./03-Student-Grades/src/data/1115.csv");
-            this->courses = readCourses("./03-Student-Grades/src/data/1115.csv");
+            vector<string> files = {"./03-Student-Grades/src/data/1115.csv", "./03-Student-Grades/src/data/3115.csv", "./03-Student-Grades/src/data/3130.csv"};
+
+            this->entries = readEntries(files);
+            this->students = readStudents(files);
+            this->instructors = readInstructors(files);
+            this->courses = readCourses(files);
         }
 
         vector<entry> getEntries() {
@@ -67,10 +69,10 @@ class recordUtil {
                 int pass = 0;
                 int total = 0;
                 rate rate;
-                rate.id = i.id;
+                rate.id = to_string(i.courseno);
 
                 for(auto j : this->entries) {
-                    if(i.id == j.courseno) {
+                    if(i.courseno == j.courseno) {
                         total++;
                         if(j.grade != "F") {
                             pass++; 
@@ -123,8 +125,43 @@ class recordUtil {
 
         }
 
+        vector<rate> getWRatePerCourse() {
+            vector<rate> res;
+            double passRate = 0;
+
+            for(auto i : this->courses) {
+                int pass = 0;
+                int total = 0;
+                rate rate;
+                rate.id = to_string(i.courseno);
+
+                for(auto j : this->entries) {
+                    if(i.courseno == j.courseno) {
+                        total++;
+                        if(j.grade != "W") {
+                            pass++; 
+                            rate.num = pass;
+                            rate.den = total; 
+                        }
+                    } 
+                    
+                }
+                
+                passRate = ((double)rate.num / rate.den);
+                rate.rate = passRate;
+                res.push_back(rate);
+            }
+
+            return res;
+
+        }
+
+
+
+
         vector<rate> getPassRateFall() {
             vector<rate> res;
+
             
             return res;
         }
