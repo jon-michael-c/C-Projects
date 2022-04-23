@@ -10,11 +10,13 @@
 
 using namespace std;
 
-vector<entry> readEntries(string file) {
+vector<entry> readEntries(vector<string> files) {
+    vector<entry> vect;
+
+    for(auto file : files) {
     string id, courseno, instructorid, termid, sectionid, grade; 
     ifstream in_stream;
     in_stream.open(file);
-    vector<entry> vect;
 
 
 
@@ -52,17 +54,18 @@ vector<entry> readEntries(string file) {
 
         in_stream.close();
     }
+    } 
 
 
     return vect;
 
 }
-
-vector<student> readStudents(string file) {
+vector<student> readStudents(vector<string> files) {
+    vector<student> vect;
+    for(auto file : files) {
     string id, courseno, instructorid, termid, sectionid, grade; 
     ifstream in_stream;
     in_stream.open(file);
-    vector<student> vect;
 
 
 
@@ -99,16 +102,19 @@ vector<student> readStudents(string file) {
     }
 
 
+    } 
     return vect;
 
 }
 
 
-vector<instructor> readInstructors(string file) {
+vector<instructor> readInstructors(vector<string> files) {
+    vector<instructor> vect;
+
+    for(auto file : files) {
     string id, courseno, instructorid, termid, sectionid, grade; 
     ifstream in_stream;
     in_stream.open(file);
-    vector<instructor> vect;
 
 
 
@@ -155,15 +161,18 @@ vector<instructor> readInstructors(string file) {
     }
 
 
+    } 
     return vect;
 
 }
 
-vector<term> readTerms(string file) {
+vector<term> readTerms(vector<string> files) {
+    vector<term> vect;
+
+    for(auto file : files) {
     string id, courseno, instructorid, termid, sectionid, grade; 
     ifstream in_stream;
     in_stream.open(file);
-    vector<term> vect;
 
 
 
@@ -207,15 +216,19 @@ vector<term> readTerms(string file) {
     }
 
 
-    return vect;
+
+    }
+        return vect;
 
 }
 
-vector<course> readCourses(string file) {
+vector<course> readCourses(vector<string> files) {
+    vector<course> vect;
+
+    for(auto file : files) {
     string id, courseno, instructorid, termid, sectionid, grade; 
     ifstream in_stream;
     in_stream.open(file);
-    vector<course> vect;
 
 
 
@@ -227,11 +240,12 @@ vector<course> readCourses(string file) {
             course course;
 
             getline(in_stream, id, ',');
+            course.id = id;
 
 
             getline(in_stream, courseno, ',');
             int icourseno = stoi(courseno);
-            course.id = icourseno;
+            course.courseno = icourseno;
 
 
             getline(in_stream, instructorid, ',');
@@ -261,6 +275,7 @@ vector<course> readCourses(string file) {
 
         in_stream.close();
     }
+    } 
 
 
     return vect;
