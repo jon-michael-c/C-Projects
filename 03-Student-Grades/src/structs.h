@@ -15,7 +15,7 @@ struct entry {
 
 struct student {
     string id;
-    string course;
+    int course;
     string grade;
 };
 
@@ -23,17 +23,48 @@ struct instructor {
     string id;
     int course;
     string term;
+
+    bool isEqual(instructor i) {
+        if(this->id == i.id) {
+            return true;
+        } else {
+            return false;
+        }
+    };
 };
 
 struct term {
     string id;
     string name;
+
+    bool isEqual(term i) {
+        if(this->id == i.id) {
+            return true;
+        } else {
+            return false;
+        }
+    };
 };
 
 struct course {
     string id;
-    string courseno;
+    string instructor;
     string sectionid;
     string termid;
+
+    bool isEqual(course i) {
+        if(this->id == i.id) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+};
+
+struct rate {
+    string id;
+    int num;
+    int den;
+    double rate;
 };
 #endif
