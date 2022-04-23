@@ -6,7 +6,7 @@ using namespace std;
 
 struct entry {
     string emplid;
-    string courseno;
+    int courseno;
     string instructorid;
     string termid;
     string sectionid;
@@ -49,11 +49,12 @@ struct term {
 struct course {
     string id;
     string instructor;
+    int courseno;
     string sectionid;
     string termid;
 
     bool isEqual(course i) {
-        if(this->id == i.id) {
+        if(this->courseno == i.courseno) {
             return true;
         } else {
             return false;
