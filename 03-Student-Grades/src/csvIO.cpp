@@ -51,6 +51,8 @@ vector<entry> readEntries(vector<string> files) {
             
         };
 
+        vect.pop_back();
+
 
         in_stream.close();
     }
@@ -279,4 +281,78 @@ vector<course> readCourses(vector<string> files) {
 
 
     return vect;
+}
+
+
+bool updateCSV(vector<entry> entries) {
+    
+    ofstream out_stream;
+    out_stream.open("./03-Student-Grades/src/data/1115.csv");
+    out_stream << "emplid,";
+    out_stream << "courseno,";
+    out_stream << "instructorid,";
+    out_stream << "termid,";
+    out_stream << "sectionid,";
+    out_stream << "grade" << "\n";
+    for(auto i : entries) {
+        if(i.courseno == 1115) {
+            out_stream << i.emplid << ",";
+            out_stream << i.courseno << ",";
+            out_stream << i.instructorid << ",";
+            out_stream << i.termid << ",";
+            out_stream << i.sectionid<< ",";
+            out_stream << i.grade << "\n";
+
+        }     
+    }
+
+    out_stream.close();
+
+    out_stream.open("./03-Student-Grades/src/data/3115.csv");
+    out_stream << "emplid,";
+    out_stream << "courseno,";
+    out_stream << "instructorid,";
+    out_stream << "termid,";
+    out_stream << "sectionid,";
+    out_stream << "grade" << "\n";
+    for(auto i : entries) {
+        if(i.courseno == 3115) {
+            out_stream << i.emplid << ",";
+            out_stream << i.courseno << ",";
+            out_stream << i.instructorid << ",";
+            out_stream << i.termid << ",";
+            out_stream << i.sectionid<< ",";
+            out_stream << i.grade << "\n";
+
+        }     
+    }
+
+    out_stream.close();
+
+    out_stream.open("./03-Student-Grades/src/data/3130.csv");
+    out_stream << "emplid,";
+    out_stream << "courseno,";
+    out_stream << "instructorid,";
+    out_stream << "termid,";
+    out_stream << "sectionid,";
+    out_stream << "grade" << "\n";
+    for(auto i : entries) {
+        if(i.courseno == 3130) {
+            out_stream << i.emplid << ",";
+            out_stream << i.courseno << ",";
+            out_stream << i.instructorid << ",";
+            out_stream << i.termid << ",";
+            out_stream << i.sectionid<< ",";
+            out_stream << i.grade << "\n";
+
+        }     
+    }
+
+            
+    out_stream.close();
+
+
+
+
+    return true;
 }
