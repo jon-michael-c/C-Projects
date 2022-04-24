@@ -1,9 +1,15 @@
 # C-Projects
+### Table of Contents 
+1.  [Reading/Writing in C](#example)
+2.  [Calculator Using Enums](#calculator\ using\ enums)
+3.  [Student Grade Records Utility](#student\ grade\ records\ utility)
+
 ## Calculator Using Enums
 Run using ```make lab2``` <br/>
 Source file can be found [here](https://github.com/jon-michael-c/C-Projects/blob/lab2/02-Calculator/calculator.cpp) <br/>
 Objective: Create a calculator program using struct and enums in C++.<br/>
 First we must create a calculator struct that takes two numbers, along with the constructor.
+
 ```c++
 struct Calculator {
     double num1;
@@ -57,3 +63,6 @@ Number 2: 4
 Result: 20
 Another Calculation? Y/N: 
 ```
+
+## Student Grade Records Utility
+
