@@ -7,72 +7,59 @@
 
 using namespace std;
 
-#include "structs.h"
-#include "recordUtil.cpp"
-
+#include "recordUtil.h"
+#include "utilFuncs.h"
 
 int main() {
+    
+    string done = "Y";
+    double num1=0, num2=0;
+    int mode;   
 
+    cout << "Setting Up Records...";
     recordUtil records;
+    cout << "Done" << endl;
 
-    vector<entry> entries = records.getEntries();
-    
-    vector<rate> rates = records.getPassPerCourse();
-    vector<rate> rates2 = records.getPassRateSpring();
+    while(done == "Y" || done == "y") {
+        cout << "Enter Operation" << endl;
+        cout << "0 - Pass Rate Per Instructor" << endl;
+        cout << "1 - Pass Rate Per Course" << endl;
+        cout << "2 - Withdraw Rate Per Instructor" << endl;
+        cout << "3 - Withdraw Rate Per Course" << endl;
+        cout << "4 - Fall VS Spring Pass Rate By Course" << endl;
+        cout << "5 - Add/Update Entry" << endl;
+        cin >> mode;
 
-    vector<student> students = records.getStudents();
-    vector<instructor> instructors = records.getInstructors();
-    vector<course> courses = records.getCourses();
+        switch(mode) {
+            case 0:
+                printPPI(records);
+                break;
+            case 1:
+                printPPC(records);
+                break;
+            case 2:
+                printWRI(records);
+                break;
+            case 3:
+                printWRC(records);
+            default:
+                cout << "Enter a correct number" << endl;
+                break;
 
-    /*
-    records.addEntry("E0003", 1115, "I12", "T04", "S10", "A+");
-    records.addEntry("E018", 3115, "I12", "T69", "S97", "A+");
-    records.addEntry("E018", 3130, "I12", "T69", "S97", "A+");
-    cout << entries[2917].emplid << endl;
-    cout << entries[2917].courseno << endl;
-    */
 
+        }
 
-    updateCSV(records.getEntries());
+        cout << "Continue? Y/N" << endl;
+        cin >> done;
+        
 
-    
-
-    /*
-    for(auto i : students) {
-        cout << i.id << endl;
-        cout << i.course << endl;
-    }
-    
-    for(auto i : instructors) {
-        cout << i.id << endl;
-        cout << i.course << endl;
-    }
-
-    for(auto i : courses) {
-        cout << i.courseno << " ";
-        cout << i.sectionid << endl;
-    }
-
-    */
-    
-    if(!1) {
-
-    cout << regex_match("W", regex("(W)(.*)")) << endl;
-    }
-    for(auto i : rates) {
-        cout << i.id << " ";
-        cout << i.num << " ";
-        cout << i.den << " ";
-        cout << i.rate << endl;
-    }
-
-    for(auto i : rates2) {
-    cout << i.id << endl;
-    cout << i.num << endl;
-    cout << i.den << endl;
-    cout << i.rate << endl;
+        
     
     }
+
+
+    return 0;
+
 }
 
 
