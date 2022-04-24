@@ -5,10 +5,14 @@
 #include <string>
 #include <set>
 
+using namespace std;
+
 #include "structs.h"
 
+#ifndef IO_HEADER
+#define IO_HEADER
 
-using namespace std;
+
 
 vector<entry> readEntries(vector<string> files) {
     vector<entry> vect;
@@ -356,3 +360,5 @@ bool updateCSV(vector<entry> entries) {
 
     return true;
 }
+
+#endif

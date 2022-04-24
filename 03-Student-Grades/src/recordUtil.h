@@ -6,7 +6,12 @@
 #include <regex>
 
 #include "structs.h"
-#include "csvIO.cpp"
+#include "csvIO.h"
+
+#ifndef RECORD_HEADER
+#define RECORD_HEADER
+
+
 
 class recordUtil {
 
@@ -304,10 +309,6 @@ class recordUtil {
         }
 
 
-
-
-
-        
-
-
 };
+
+#endif
