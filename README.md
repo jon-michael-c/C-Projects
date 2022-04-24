@@ -1,8 +1,8 @@
 # C-Projects
 ### Table of Contents 
 1.  [Reading/Writing in C](#example)
-2.  [Calculator Using Enums](#calculator\ using\ enums)
-3.  [Student Grade Records Utility](#student\ grade\ records\ utility)
+2.  [Calculator Using Enums](#calculator-using-enums)
+3.  [Student Grade Records Utility](#student-grade-records-utility)
 
 ## Calculator Using Enums
 Run using ```make lab2``` <br/>
