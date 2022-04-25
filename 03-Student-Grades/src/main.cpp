@@ -12,50 +12,50 @@ using namespace std;
 
 int main() {
     
+       
     string done = "Y";
-    double num1=0, num2=0;
-    int mode;   
 
     cout << "Setting Up Records...";
     recordUtil records;
     cout << "Done" << endl;
-
+    cout << endl;
+    
+    cout << "Add/Update Entry? Y/N";
+    cin >> done;
     while(done == "Y" || done == "y") {
-        cout << "Enter Operation" << endl;
-        cout << "0 - Pass Rate Per Instructor" << endl;
-        cout << "1 - Pass Rate Per Course" << endl;
-        cout << "2 - Withdraw Rate Per Instructor" << endl;
-        cout << "3 - Withdraw Rate Per Course" << endl;
-        cout << "4 - Fall VS Spring Pass Rate By Course" << endl;
-        cout << "5 - Add/Update Entry" << endl;
-        cin >> mode;
+        entry newEntry; 
+         
+        cout << "EMPLID: ";
+        cin >> newEntry.emplid;  
 
-        switch(mode) {
-            case 0:
-                printPPI(records);
-                break;
-            case 1:
-                printPPC(records);
-                break;
-            case 2:
-                printWRI(records);
-                break;
-            case 3:
-                printWRC(records);
-            default:
-                cout << "Enter a correct number" << endl;
-                break;
+        cout << "COURSENO: ";
+        cin >> newEntry.courseno;  
 
+        cout << "INSTRUCTORID: ";
+        cin >> newEntry.instructorid;  
 
-        }
+        cout << "TERMID: ";
+        cin >> newEntry.termid;  
 
-        cout << "Continue? Y/N" << endl;
+        cout << "SECTIONID: ";
+        cin >> newEntry.sectionid;  
+
+        cout << "GRADE: ";
+        cin >> newEntry.grade;  
+
+        records.addEntry(newEntry);
+
+        cout << "Add/Update Another Entry? Y/N" << endl;
         cin >> done;
-        
-
-        
     
     }
+
+    records.printPassPerInstructor(); 
+    records.printPassPerCourse();
+    records.printWithRatePerInstructor();
+    records.printWithRatePerCourse();
+    records.printPassRateFall();
+    records.printPassRateSpring();
 
 
     return 0;
