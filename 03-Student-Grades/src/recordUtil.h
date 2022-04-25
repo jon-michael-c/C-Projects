@@ -2,11 +2,13 @@
 #include <string>
 #include <fstream>
 #include <vector>
-#include <set>
+#include <iomanip>
 #include <regex>
+
 
 #include "structs.h"
 #include "csvIO.h"
+#include "utilFuncs.h"
 
 #ifndef RECORD_HEADER
 #define RECORD_HEADER
@@ -23,7 +25,7 @@ class recordUtil {
         vector<term> terms;
     public:
         recordUtil() {
-            vector<string> files = {"./03-Student-Grades/src/data/1115.csv", "./03-Student-Grades/src/data/3115.csv", "./03-Student-Grades/src/data/3130.csv"};
+            vector<string> files = {"./03-Student-Grades/data/1115.csv", "./03-Student-Grades/data/3115.csv", "./03-Student-Grades/data/3130.csv"};
 
             this->entries = readEntries(files);
             this->students = readStudents(files);
@@ -35,7 +37,8 @@ class recordUtil {
             return this->entries;
         }
 
-        vector<rate> getPassPerInstructor() {
+        void printPassPerInstructor() {
+
             vector<rate> res;
             
             double passRate = 0;
@@ -58,16 +61,18 @@ class recordUtil {
                     
                 }
                 
-                passRate = ((double)rate.num / rate.den);
+                passRate = ((double)rate.num / rate.den) * 100;
                 rate.rate = passRate;
                 res.push_back(rate);
             }
 
-            return res;
+            
+            printRate("Pass Rate Per Instuctor","Instructor", res);
+
 
         }      
 
-        vector<rate> getPassPerCourse() {
+        void printPassPerCourse() {
             vector<rate> res;
             double passRate = 0;
 
@@ -89,22 +94,23 @@ class recordUtil {
                     
                 }
                 
-                passRate = ((double)rate.num / rate.den);
+                passRate = ((double)rate.num / rate.den) * 100;
                 rate.rate = passRate;
                 res.push_back(rate);
             }
 
-            return res;
+            printRate("Pass Rate Per Course","Course", res);
+
 
         }
 
-        vector<rate> getWRatePerInstructor() {
+        void printWithRatePerInstructor() {
             vector<rate> res;
             
-            double passRate = 0;
+            double withRate = 0;
 
             for(auto i : this->instructors) {
-                int pass = 0;
+                int with = 0;
                 int total = 0;
                 rate rate;
                 rate.id = i.id;
@@ -112,31 +118,31 @@ class recordUtil {
                 for(auto j : this->entries) {
                     if(i.id == j.instructorid) {
                         total++;
-                        if(!isWithrW(j.grade)) {
-                            pass++; 
-                            rate.num = pass;
+                        if(isWithrW(j.grade)) {
+                            with++; 
+                            rate.num = with;
                             rate.den = total; 
                         }
                     } 
                     
                 }
                 
-                passRate = ((double)rate.num / rate.den);
-                rate.rate = passRate;
+                withRate = ((double)rate.num / rate.den) * 100;
+                rate.rate = withRate;
                 res.push_back(rate);
             }
+            printRate("Withdraw Rate Per Instructor","Instructor", res);
 
-            return res;
 
 
         }
 
-        vector<rate> getWRatePerCourse() {
+        void printWithRatePerCourse() {
             vector<rate> res;
-            double passRate = 0;
+            double withRate = 0;
 
             for(auto i : this->courses) {
-                int pass = 0;
+                int with = 0;
                 int total = 0;
                 rate rate;
                 rate.id = to_string(i.courseno);
@@ -144,27 +150,27 @@ class recordUtil {
                 for(auto j : this->entries) {
                     if(i.courseno == j.courseno) {
                         total++;
-                        if(!isWithrW(j.grade)) {
-                            pass++; 
-                            rate.num = pass;
+                        if(isWithrW(j.grade)) {
+                            with++; 
+                            rate.num = with;
                             rate.den = total; 
                         }
                     } 
                 }
                 
-                passRate = ((double)rate.num / rate.den);
-                rate.rate = passRate;
+                withRate = ((double)rate.num / rate.den) * 100;
+                rate.rate = withRate;
                 res.push_back(rate);
             }
+            printRate("Withdraw Rate Per Course", "Course", res);
 
-            return res;
 
         }
 
 
 
 
-        vector<rate> getPassRateFall() {
+        void printPassRateFall() {
             vector<rate> res;
 
             for(auto i : this->courses) {
@@ -177,7 +183,7 @@ class recordUtil {
                 for(auto j : this->entries) {
                     if(i.courseno == j.courseno && isFall(j.termid)) {
                         total++;
-                        if(j.grade != "F") {
+                        if(!isFailed(j.grade)) {
                             pass++;  
                             rate.num = pass;
                             rate.den = total;
@@ -185,18 +191,18 @@ class recordUtil {
                     } 
                 }
 
-                passRate = ((double)rate.num / rate.den);
+                passRate = ((double)rate.num / rate.den) * 100;
                 rate.rate = passRate;
                 res.push_back(rate);
                 
             }
 
-            return res;
+            printRate("Pass Rate In Fall","Course", res);
 
 
             
         }
-        vector<rate> getPassRateSpring() {
+        void printPassRateSpring() {
             vector<rate> res;
 
             for(auto i : this->courses) {
@@ -209,7 +215,7 @@ class recordUtil {
                 for(auto j : this->entries) {
                     if(i.courseno == j.courseno && !isFall(j.termid)) {
                         total++;
-                        if(j.grade != "F") {
+                        if(!isFailed(j.grade)) {
                             pass++;  
                             rate.num = pass;
                             rate.den = total;
@@ -217,13 +223,16 @@ class recordUtil {
                     } 
                 }
 
-                passRate = ((double)rate.num / rate.den);
+                passRate = ((double)rate.num / rate.den) * 100;
                 rate.rate = passRate;
                 res.push_back(rate);
                 
             }
 
-            return res;
+            printRate("Pass Rate In Spring","Course", res);
+
+
+
 
 
             
@@ -231,15 +240,10 @@ class recordUtil {
 
         
 
-        void addEntry(string emplid, int courseno, string instructorid, string termid, string sectionid, string grade) {
-            entry newEntry;
-            newEntry.emplid = emplid;
-            newEntry.courseno = courseno;
-            newEntry.instructorid = instructorid;
-            newEntry.termid = termid;
-            newEntry.sectionid = sectionid;
-            newEntry.grade = grade;
+        
 
+        void addEntry(entry newEntry) {
+            
             for(int i = 0; i < this->entries.size(); i++) {
                 if(this->entries[i].isEqual(newEntry)) {
                     this->entries[i] = newEntry;
@@ -248,9 +252,11 @@ class recordUtil {
 
             this->entries.push_back(newEntry);
 
+            cout << "Updating Database...";
             updateCSV(this->entries);
+            cout << "Done" << endl;
 
-        }
+        } 
  
         vector<student> getStudents() {
             return this->students;
@@ -268,46 +274,6 @@ class recordUtil {
         vector<course> getCourses() {
             return this->courses;
         }
-
-        bool isFall(string termid) {
-            vector<string> fallTerms = {"T04", "T08", "T12", "T16", "T20", "T23"};
-            for(auto i : fallTerms) {
-                if(termid == i) {
-                    return true;
-                }
-            }
-
-            return false;
-        }
- 
-        bool isSpring(string termid) {
-            vector<string> springTerms = {"T02", "T06", "T10", "T14", "T18", "T21"};
-            for(auto i : springTerms) {
-                if(termid == i) {
-                    return true;
-                }
-            }
-
-            return false;
-        }       
-
-        bool isFailed(string grade) {
-            if(regex_match(grade, regex("(F)(.*)"))) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-
-
-        bool isWithrW(string grade) {
-            if(regex_match(grade, regex("(W)(.*)"))) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-
 
 };
 
