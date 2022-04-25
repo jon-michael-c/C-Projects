@@ -1,13 +1,14 @@
-#include <iostream>
 #include <vector>
 #include <sstream>
 #include <fstream>
 #include <string>
-#include <set>
+#include <algorithm>
 
 using namespace std;
 
 #include "structs.h"
+#include "utilFuncs.h"
+#include "VariadicTable.h"
 
 #ifndef IO_HEADER
 #define IO_HEADER
@@ -291,7 +292,7 @@ vector<course> readCourses(vector<string> files) {
 bool updateCSV(vector<entry> entries) {
     
     ofstream out_stream;
-    out_stream.open("./03-Student-Grades/src/data/1115.csv");
+    out_stream.open("./03-Student-Grades/data/1115.csv");
     out_stream << "emplid,";
     out_stream << "courseno,";
     out_stream << "instructorid,";
@@ -312,7 +313,7 @@ bool updateCSV(vector<entry> entries) {
 
     out_stream.close();
 
-    out_stream.open("./03-Student-Grades/src/data/3115.csv");
+    out_stream.open("./03-Student-Grades/data/3115.csv");
     out_stream << "emplid,";
     out_stream << "courseno,";
     out_stream << "instructorid,";
@@ -333,7 +334,7 @@ bool updateCSV(vector<entry> entries) {
 
     out_stream.close();
 
-    out_stream.open("./03-Student-Grades/src/data/3130.csv");
+    out_stream.open("./03-Student-Grades/data/3130.csv");
     out_stream << "emplid,";
     out_stream << "courseno,";
     out_stream << "instructorid,";
@@ -361,4 +362,30 @@ bool updateCSV(vector<entry> entries) {
     return true;
 }
 
+
+void printRate(string head, string key, vector<rate> rates) {
+            ofstream o;
+            
+            string output = "03-Student-Grades/output/" + head + " " + getTime() + ".txt";
+            o.open(output);
+            o.precision(2);
+
+            VariadicTable<string, string, string> vt({key, "Ratio", "Percentage"});
+
+            for(auto i : rates) {
+                string id = i.id;
+                string ratio = to_string(i.num) + " / " + to_string(i.den);
+                string perc = to_string(i.rate) + "%";
+                vt.addRow(id, ratio, perc);
+            }
+
+            vt.print(o);
+
+            o.close();
+
+            cout << "Printed Results At " + output << endl; 
+    
+
+
+}
 #endif
