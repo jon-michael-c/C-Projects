@@ -4,3 +4,6 @@
 [submodule "data"]
 	path = data
 	url = https://gist.github.com/katychuang/d279545d975c1652689e8195e2426adf
+[submodule "03-Student-Grades/data"]
+	path = 03-Student-Grades/data
+	url = https://gist.github.com/katychuang/d279545d975c1652689e8195e2426adf
