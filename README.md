@@ -87,10 +87,15 @@ E0174,1115,I12,T04,S10,W
 ```
 
 **Analytical Functions**
-* Pass Rate Per Instructor
-* Pass Rate Per Course
-* Withdraw Rate Per Instructor
-* Withdraw Rate Per Course
+
+| Function         | Description | 
+|--------------|:-----:|
+| printPassPerInstructor() |  Shows the pass rate per instructor, where grade is not 'F*' | 
+| printPassPerCourse() |  Shows the pass rate per course |  
+| printWithRatePerInstructor() |  Shows the withdraw rate per instructor, where grade is 'W*' |  
+| printWithRatePerCourse() |  Shows the withdraw rate per course |  
+| printPassRateFall() |  Shows pass rate in the fall semesters |  
+| printPassRateSpring() | Shows pass rate in the spring semesters |  
 
 ### Necessary Structs
 ```c++
@@ -231,3 +236,5 @@ emplid,courseno,instructorid,termid,sectionid,grade
 E0232,1115,I27,T05,S12,A++
 
 ```
+
+**Credit to [friedmud](https://github.com/friedmud)for his [variadic table](https://github.com/jon-michael-c/C-Projects/blob/main/03-Student-Grades/src/VariadicTable.h) for formatting**.
