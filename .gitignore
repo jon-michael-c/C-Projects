@@ -1,1 +1,3 @@
-bench.cc
+./03-Student-Grades/output/*
+.obsidian/
+.vscode/

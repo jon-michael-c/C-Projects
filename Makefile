@@ -7,4 +7,7 @@ lab2:
 	g++ -o ./lab2 ./02-Calculator/calculator.cpp
 	./lab2
 	rm -r ./lab2
-
+lab3:
+	g++ -o ./lab3 ./03-Student-Grades/src/main.cpp
+	./lab3
+	rm -r ./lab3
