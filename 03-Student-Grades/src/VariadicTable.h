@@ -1,3 +1,7 @@
+/*
+ * Credit: https://github.com/friedmud
+ * From: https://github.com/friedmud/variadic_table
+*/
 #pragma once
 
 #include <iostream>
